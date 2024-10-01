@@ -16,16 +16,16 @@ data "aws_networkmanager_core_network_policy_document" "base_policy" {
   core_network_configuration {
     vpn_ecmp_support    = true
     asn_ranges          = ["64520-65525"]
-    # inside_cidr_blocks = "172.22.0.0/16"
+    inside_cidr_blocks = ["172.31.0.0/16"]
     edge_locations {
       location = var.region1
       asn      = 64520
-    #   inside_cidr_blocks = "172.22.1.0/24"
+      inside_cidr_blocks = ["172.31.1.0/24"]
     }
     edge_locations {
       location = var.region2
       asn      = 64521
-    #   inside_cidr_blocks = "172.22.2.0/16"
+      inside_cidr_blocks = ["172.31.2.0/24"]
 
     }
   }
@@ -81,17 +81,17 @@ data "aws_networkmanager_core_network_policy_document" "base_policy" {
 data "aws_networkmanager_core_network_policy_document" "policy" {
   core_network_configuration {
     vpn_ecmp_support    = true
-    asn_ranges          = ["64520-64530"]
-    # inside_cidr_blocks = "172.22.0.0/16"
+    asn_ranges          = ["64520-65525"]
+    inside_cidr_blocks = ["172.31.0.0/16"]
     edge_locations {
       location = var.region1
       asn      = 64520
-    #   inside_cidr_blocks = "172.22.1.0/24"
+      inside_cidr_blocks = ["172.31.1.0/24"]
     }
     edge_locations {
       location = var.region2
       asn      = 64521
-    #   inside_cidr_blocks = "172.22.2.0/16"
+      inside_cidr_blocks = ["172.31.2.0/24"]
 
     }
   }
@@ -192,7 +192,7 @@ resource "aws_networkmanager_core_network" "core_network" {
   }
 }
 
-#// Core Network Policy Attachment
+// Core Network Policy Attachment
 resource "aws_networkmanager_core_network_policy_attachment" "core_network_policy_attachment" {
 
   core_network_id = aws_networkmanager_core_network.core_network.id
